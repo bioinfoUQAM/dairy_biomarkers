@@ -1,0 +1,59 @@
+[default]
+home =          /path/to/root/vetmetabo
+db_dir =	    ${default:home}/databases
+data_dir =       ${default:home}/dataset_root
+
+[extractor]
+animal_list = 	${default:db_dir}/animal_list
+dsa_dir =	    ${default:db_dir}/DSA
+dsa_db =		${extractor:dsa_dir}/fusion.xlsx
+db_attributes =	${default:db_dir}/db_attributes
+health_labels = ${default:db_dir}/health_labels
+metabolite_mapping = ${default:db_dir}/dsa_metabolite_mapping
+
+[loader]
+short_date = 	 %Y%m%d
+long_date = 	 %Y-%m-%d %H:%M
+train_perc =     60
+valid_perc =     20
+test_perc =      20
+data_instances = ${default:data_dir}/data_instances
+feat_dir =       ${default:data_dir}/features
+# feature filter options: rare, farmId, metab, nmr, dsa
+feat_filters =   rare,farmId,metab
+# event (none), farm, animal 
+split_type =     animal
+# 'balanced' or 'strat', and add '-disease' for disease only
+split_balance =  strat
+# health ('-binary' or '-multiclass'), prod, reprod ('-multiclass')
+target_label =   prod
+
+
+[retriever]
+# consider labeling at event or lactation level 
+production_labels =    ${default:db_dir}/production_labels
+reproduction_labels =  ${default:db_dir}/reproduction_labels
+herd_match_perc =      25
+lactation_days_threshold = 70
+# days apart from same health code
+event_days_threshold = 14
+bhb_threshold =        0.5
+mun_threshold =        20
+scc_threshold =        300
+fat_protein_ratio =    2
+
+[vectorizer]
+analysis_path = ${default:data_dir}/analysis/
+models_path =   ${default:data_dir}/models/
+encoders_path = ${default:data_dir}/encoders/
+performance_path = ${default:data_dir}/performance/
+# task = 'train', 'valid', 'test'
+task =            valid
+classifier_type = regular
+label_type =      multiclass
+merge_performance = False
+batch_size =      15
+epochs =          1000
+binary_threshold = 0.5
+# logit, mlp, multilp
+arch =            mlp
