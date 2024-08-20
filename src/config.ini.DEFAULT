@@ -1,7 +1,7 @@
 [default]
 home =          /path/to/root/vetmetabo
 db_dir =	    ${default:home}/databases
-data_dir =       ${default:home}/dataset_root
+data_dir =       ${default:home}/dataset_samples
 
 [extractor]
 animal_list = 	${default:db_dir}/animal_list
@@ -9,7 +9,7 @@ dsa_dir =	    ${default:db_dir}/DSA
 dsa_db =		${extractor:dsa_dir}/fusion.xlsx
 db_attributes =	${default:db_dir}/db_attributes
 health_labels = ${default:db_dir}/health_labels
-metabolite_mapping = ${default:db_dir}/dsa_metabolite_mapping
+metabolite_mapping = ${default:db_dir}/metabolite_mapping
 
 [loader]
 short_date = 	 %Y%m%d
